@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://127.0.0.1')
+var client  = mqtt.connect('mqtt://37.139.12.249')
  
 client.on('connect', function () {
   client.subscribe('/lights/neopixel');

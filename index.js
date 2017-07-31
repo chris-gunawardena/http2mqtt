@@ -6,14 +6,11 @@ mqtt_server.on('ready', function setup() {
 mqtt_server.on('clientConnected', function(client) {
     console.log('client connected', client.id);
 });
-mqtt_server.on('published', function(packet, client) {
-  console.log('Published', packet.payload);
-});
 
 var http_server = require('express')();
 http_server.use(require("body-parser").text({type: ()=>true}));
 http_server.all('*', function(req, res){
-    console.log(req.path, req.bod);
+    console.log(req.path, req.body);
     mqtt_server.publish({
         topic: req.path,
         payload: req.body,
