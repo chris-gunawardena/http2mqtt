@@ -13,6 +13,7 @@ mqtt_server.on('published', function(packet, client) {
 var http_server = require('express')();
 http_server.use(require("body-parser").text({type: ()=>true}));
 http_server.all('*', function(req, res){
+    console.log(req.path, req.bod);
     mqtt_server.publish({
         topic: req.path,
         payload: req.body,
