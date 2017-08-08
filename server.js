@@ -9,6 +9,7 @@ mqtt_server.on('clientConnected', function(client) {
 
 var express_app = require('express')();
 var https = require('https');
+var fs = require('fs');
 var https_options = {
     key: fs.readFileSync('/etc/letsencrypt/live/mqtt.chris.gunawardena.id.au/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/mqtt.chris.gunawardena.id.au/cert.pem')
