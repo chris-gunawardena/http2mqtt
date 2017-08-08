@@ -7,9 +7,14 @@ mqtt_server.on('clientConnected', function(client) {
     console.log('client connected', client.id);
 });
 
-var http_server = require('express')();
-http_server.use(require("body-parser").text({type: ()=>true}));
-http_server.all('*', function(req, res){
+var express_app = require('express')();
+var https = require('https');
+var https_options = {
+    key: fs.readFileSync('/etc/letsencrypt/live/mqtt.chris.gunawardena.id.au/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/mqtt.chris.gunawardena.id.au/cert.pem')
+};
+express_app.use(require("body-parser").text({type: ()=>true}));
+express_app.all('*', function(req, res){
     console.log(req.path, req.body);
     mqtt_server.publish({
         topic: req.path,
@@ -20,5 +25,6 @@ http_server.all('*', function(req, res){
         res.send('OK')
     })
 });
-http_server.listen(3000);
-console.log('http listening on port 3000');
+
+https.createServer(https_options, express_app).listen(443);
+
