@@ -7,7 +7,7 @@ services:
     environment:
       SSL_HOST: mqtt.chris.gunawardena.id.au
     ports:
-      - 443
-      - 1883
+      - "443:443"
+      - "1883:1883"
     volumes:
       - "/etc/letsencrypt:/etc/letsencrypt"
