@@ -5,22 +5,8 @@ services:
   http2mqtt:
     image: chrisgunawardena/http2mqtt
     environment:
-      VIRTUAL_HOST: mqtt.chris.gunawardena.id.au
-      LETSENCRYPT_HOST: mqtt.chris.gunawardena.id.au
-      LETSENCRYPT_EMAIL: chris@gunawardena.id.au
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+      SSL_HOST: mqtt.chris.gunawardena.id.au
     ports:
-      - "3000:443"
+      - "443:443"
     volumes:
-      - "/etc/nginx/vhost.d"
-      - "/usr/share/nginx/html"
-      - "/var/run/docker.sock:/tmp/docker.sock:ro"
-      - "/etc/nginx/certs"
-
-  letsencrypt-nginx-proxy-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
+      - "/etc/letsencrypt:/etc/letsencrypt"

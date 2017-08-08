@@ -11,8 +11,8 @@ var express_app = require('express')();
 var https = require('https');
 var fs = require('fs');
 var https_options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/mqtt.chris.gunawardena.id.au/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/mqtt.chris.gunawardena.id.au/cert.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/' + process.env.SSL_HOST + '/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/' + process.env.SSL_HOST + '/cert.pem')
 };
 express_app.use(require("body-parser").text({type: ()=>true}));
 express_app.all('*', function(req, res){
