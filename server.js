@@ -24,7 +24,16 @@ express_app.all('*', function(req, res){
         qos: 0, // 0, 1, or 2
         retain: false // or true
     }, function() {
-        res.send('OK')
+
+        res.setHeader('Content-type', 'application/json');
+        var response = {
+            "speech": "Switching lights on/off",
+            "displayText": "Switching lights on/off",
+            "data": {},
+            "contextOut": [],
+            "source": "mqtt"
+        };
+        res.send(response);
     })
 });
 
