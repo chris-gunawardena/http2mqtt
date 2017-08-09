@@ -21,11 +21,6 @@ char* string2char(String command){
     }
 }
 
-bool get_light_state(const char* json) {
-  JsonObject& root = jsonBuffer.parseObject(json);
-  JsonObject& result = root["result"];
-  return strcmp(result["parameters"]["light-state"], "on") == 0;
-}
 
 void setup_wifi() {
   delay(10);
@@ -48,21 +43,20 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
 
-
   if (strcmp(topic, "/lights") == 0) {
-    String returnTopicStr = String(topic) + String("/return");
-    if (get_light_state((char *) payload)) {
+    JsonObject& root = jsonBuffer.parseObject((char *) payload);
+    const char* reply_id = root["reply_id"]; // "/reply/id_8106"
+    const char* light_state = root["body"]["result"]["parameters"]["light-state"]; // "on"
+    Serial.println(light_state);
+
+    if (strcmp(light_state, "on") == 0) {
       digitalWrite(output_pin, HIGH);
-      client.publish(string2char(returnTopicStr), "ON");
-      Serial.println("ON");
+      client.publish(reply_id, "{\"speech\": \"Switching lights on\", \"displayText\": \"Switching lights on\", \"data\": {}, \"contextOut\": [], \"source\": \"mqtt\" }");
     } else {
       digitalWrite(output_pin, LOW);
-      client.publish(string2char(returnTopicStr), "OFF");
-      Serial.println("OFF");
-    }
+      client.publish(reply_id, "{\"speech\": \"Switching lights off\", \"displayText\": \"Switching lights off\", \"data\": {}, \"contextOut\": [], \"source\": \"mqtt\" }");
+    }    
   }
-
-
 }
 
 void reconnect() {
