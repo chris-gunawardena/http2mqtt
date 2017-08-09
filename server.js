@@ -33,10 +33,10 @@ express_app.all('*', function(req, res){
     responses[reply_id] = res;
     mqtt_server.publish({
         topic: req.path,
-        payload: {
-            body: req.body,
+        payload: JSON.stringify({
+            body: JSON.parse(req.body),
             reply_id: reply_id
-        },
+        }),
         qos: 0, // 0, 1, or 2
         retain: false // or true
     });
