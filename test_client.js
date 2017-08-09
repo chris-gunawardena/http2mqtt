@@ -6,6 +6,8 @@ client.on('connect', function () {
 })
  
 client.on('message', function (topic, message) {
-  console.log(message.toString())
+  console.log(message.toString());
+  var msg_obj = JSON.parse(message.toString());
+  client.publish(msg_obj.reply_id, 'xoxo');
 });
   console.log('ok');
