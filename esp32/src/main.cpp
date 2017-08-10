@@ -8,6 +8,8 @@ int output_pin = 5;
 const char* ssid = "FASTWEB-1-D2700B";
 const char* password = "978C3B413C";
 const char* mqtt_server = "mqtt.chris.gunawardena.id.au";
+// const char* mqtt_user = "mqtt_user";
+// const char* mqtt_password = "mqtt_secret";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -63,6 +65,8 @@ void reconnect() {
   while (!client.connected()) {
     String clientId = "ESP32Client-";
     clientId += String(random(0xffff), HEX);
+    //mqtt_secret
+    // if (client.connect(clientId.c_str(), mqtt_user.c_str(), mqtt_password.c_str())) {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       client.subscribe("/lights");
