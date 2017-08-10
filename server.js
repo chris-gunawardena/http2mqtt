@@ -17,6 +17,7 @@ mqtt_server.on('published', function(packet, client) {
 });
 
 var express_app = require('express')();
+var basicAuth = require('express-basic-auth');
 var https = require('https');
 var fs = require('fs');
 var https_options = {
@@ -25,7 +26,11 @@ var https_options = {
     ca: fs.readFileSync('/etc/letsencrypt/live/' + process.env.SSL_HOST + '/chain.pem')
 };
 
+express_app.use(basicAuth({
+    users: { 'chris': 'abcd1234' }
+}));
 express_app.use(require("body-parser").text({type: ()=>true}));
+
 express_app.all('*', function(req, res){
     console.log(req.path, req.body);
     // store response until reply from mqtt client
