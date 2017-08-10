@@ -1,7 +1,12 @@
 
 var mqtt_server = new require('mosca').Server({ port: 1883 });
 mqtt_server.on('ready', function setup() {
-  console.log('mqtt_server server is up and running')
+  console.log('mqtt_server server is up and running');
+//   mqtt_server.authenticate = function(client, username, password, callback) {
+//     var authorized = (username === 'mqtt_user' && password.toString() === 'mqtt_secret');
+//     if (authorized) client.user = username;
+//     callback(null, authorized);
+//   };
 });
 mqtt_server.on('clientConnected', function(client) {
     console.log('client connected', client.id);
@@ -26,9 +31,9 @@ var https_options = {
     ca: fs.readFileSync('/etc/letsencrypt/live/' + process.env.SSL_HOST + '/chain.pem')
 };
 
-express_app.use(basicAuth({
-    users: { 'chris': 'abcd1234' }
-}));
+// express_app.use(basicAuth({
+//     users: { 'rest_user': 'rest_secret' }
+// }));
 express_app.use(require("body-parser").text({type: ()=>true}));
 
 express_app.all('*', function(req, res){
