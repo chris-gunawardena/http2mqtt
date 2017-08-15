@@ -9,7 +9,8 @@
     "express-basic-auth": "^1.1.1",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
-    "mosca": "^2.5.2"
+    "mosca": "^2.5.2",
+    "request": "^2.81.0"
   },
   "devDependencies": {},
   "scripts": {
