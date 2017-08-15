@@ -14,7 +14,7 @@ mqtt_server.on('published', function(packet, client) {
     responses[packet.topic].setHeader('Content-type', 'application/json');
     responses[packet.topic].send(packet.payload);
     responses[packet.topic] = null;
-  } else if(packet.topic.startsWith('/request')) {
+  } else if(packet.topic.startsWith('/request') && !packet.topic.startsWith('/request/reply')) {
     //make a http request
     console.log('payload', packet.payload);
     var options = JSON.parse(packet.payload);
