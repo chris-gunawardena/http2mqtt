@@ -1,9 +1,7 @@
-# http2mqtt
-## Nodejs https->mqtt->https and mqtt->https->mqtt Gateway
+# Nodejs https->mqtt->https and mqtt->https->mqtt Gateway
+## Allows HTTPS web services connect to IoT devices via MQTT and IoT devices make HTTPS calls via MQTT
 
-### https -> mqtt -> https
-
-
+### https -> mqtt -> https (Allows HTTPS web services connect to IoT devices via MQTT)
 [![HTTPS to MQTT](https://media.giphy.com/media/XyPqaI0ImIPfi/giphy.gif)](https://www.youtube.com/watch?v=ZfAJ-2c3QO8 "youtube video")
 
 #### JS client example
@@ -40,7 +38,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 ```
 
-### mqtt -> https -> mqtt
+### mqtt -> https -> mqtt (Allows IoT devices make HTTPS calls via MQTT)
+[![HTTPS to MQTT](https://media.giphy.com/media/8lpOGBGJ4BRE4/giphy.gif)](https://youtu.be/XBuaXGn8jrI "youtube video")
 
 #### ESP32 (C++) client example
 https://github.com/chris-gunawardena/IoT-H2O/blob/master/esp32/src/main.cpp
